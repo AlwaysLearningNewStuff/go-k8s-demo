@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+data:
+  POSTGRES_HOST: "demo-db"   # service name of Postgres
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "mydb"
+  API_PORT: "8080"
