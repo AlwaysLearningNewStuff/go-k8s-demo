@@ -2,13 +2,13 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: flyway-migration
-  namespace: demo
+  namespace: go-k8s-demo
 spec:
   template:
     spec:
       initContainers:
       - name: wait-for-postgres
-        image: postgres:16-alpine
+        image: postgres:15-alpine
         command: 
         - sh
         - -c
@@ -27,6 +27,13 @@ spec:
       - name: flyway
         image: flyway/flyway:10
         imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
         command:
         - flyway
         - -url=jdbc:postgresql://postgres:5432/$(POSTGRES_DB)

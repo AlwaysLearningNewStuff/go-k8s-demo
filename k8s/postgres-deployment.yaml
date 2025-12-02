@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
-  namespace: demo
+  namespace: go-k8s-demo
 spec:
   replicas: 1
   selector:
@@ -19,6 +19,13 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5432
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
         env:
         - name: POSTGRES_USER
           valueFrom:
@@ -65,7 +72,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: postgres
-  namespace: demo
+  namespace: go-k8s-demo
 spec:
   selector:
     app: postgres
